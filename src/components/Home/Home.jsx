@@ -9,7 +9,6 @@ export const Home = () => {
   useEffect(() => {
     FetchData().then(item => settrandingMovies(item.results));
   }, []);
-  console.log(trandingMovies);
   return (
     <>
       <h1>Tranding Today</h1>

@@ -1,24 +1,30 @@
-import { Routes, Route } from 'react-router-dom';
-import { Layout } from './Layout/Layout';
+import { Routes, Route, Link } from 'react-router-dom';
 import { Home } from './Home/Home';
+import styled from 'styled-components';
 import { MovieDetails } from './MovieDetails/MovieDetails';
 
 export const App = () => {
+  const NavItem = styled(Link)`
+    text-decoration: none;
+    margin: 4px;
+    color: black;
+
+    &.active {
+      color: red;
+    }
+  `;
+
   return (
     <>
+      <nav>
+        <NavItem to="/">Home</NavItem>
+        <NavItem to="/movie">Movie</NavItem>
+      </nav>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="movies" element={<div>Movies</div>}>
-            <Route path=":movieId" element={<div>TEST</div>} />
-          </Route>
-        </Route>
+        <Route index element={<Home />} />
+        <Route path="movie" element={<div>Movies</div>} />
+        <Route path="/movie/:movieId" element={<MovieDetails />} />
       </Routes>
     </>
   );
 };
-// Layout
-// // Home --- top15 movies
-// // Movies -> Movie/:id -> cast -> reviews
-// // Movies --- search
-// key ad24807293275bef83ede161311e71e0
