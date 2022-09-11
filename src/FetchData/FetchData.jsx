@@ -29,3 +29,14 @@ export const FetchInfo = (id, what) => {
     }
   });
 };
+
+export const searchMovie = query => {
+  return fetch(
+    `
+https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}&page=1`
+  ).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
+};
