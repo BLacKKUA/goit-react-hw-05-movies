@@ -1,11 +1,17 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 
 export const Movie = () => {
-  //   const [inputValue, setInputValue] = useState('');
+  const [query, setQuery] = useState('');
+
+  const eventFrom = e => {
+    e.preventDefault();
+
+    setQuery(e.currentTarget.query.value);
+  };
   return (
-    <div>
-      <input type="text" />
-      <button type="button">Search</button>
-    </div>
+    <form action="#" onSubmit={() => eventFrom}>
+      <input name="query" type="text" />
+      <button type="submit">Search</button>
+    </form>
   );
 };
