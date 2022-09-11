@@ -19,3 +19,13 @@ export const FetchInfoAboutMovie = id => {
     }
   });
 };
+
+export const FetchInfo = (id, what) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/${what}?api_key=${API_KEY}`
+  ).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
+};

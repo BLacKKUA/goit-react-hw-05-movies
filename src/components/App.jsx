@@ -1,10 +1,13 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, NavLink } from 'react-router-dom';
 import { Home } from './Home/Home';
 import styled from 'styled-components';
 import { MovieDetails } from './MovieDetails/MovieDetails';
+import { Cast } from './Cast/Cast';
+import { Reviews } from './Reviews/Reviews';
+import { Movie } from './Movies/Movies';
 
 export const App = () => {
-  const NavItem = styled(Link)`
+  const NavItem = styled(NavLink)`
     text-decoration: none;
     margin: 4px;
     color: black;
@@ -22,8 +25,11 @@ export const App = () => {
       </nav>
       <Routes>
         <Route index element={<Home />} />
-        <Route path="movie" element={<div>Movies</div>} />
-        <Route path="/movie/:movieId" element={<MovieDetails />} />
+        <Route path="movie" element={<Movie />} />
+        <Route path="/movie/:movieId" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
       </Routes>
     </>
   );

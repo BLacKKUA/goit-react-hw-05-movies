@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FetchInfoAboutMovie } from '../../FetchData/FetchData';
 
@@ -8,13 +8,19 @@ export const MovieDetails = () => {
   useEffect(() => {
     FetchInfoAboutMovie(movieId).then(setMovie);
   }, [movieId]);
-  console.log(movie);
+
+  const NavItem = [
+    { href: 'cast', name: 'Cast' },
+    { href: 'reviews', name: 'Reviews' },
+  ];
+  // console.log(movie);
   if (!movie) {
     return null;
   }
   return (
     <>
       <div>
+        <NavLink to="/">Go to back</NavLink>
         <h1>{movie.name ?? movie.title}</h1>
         <img
           src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
@@ -24,10 +30,19 @@ export const MovieDetails = () => {
         <p>{movie.overview}</p>
         <h2>Genres</h2>
         <p>
-          {/* {movie.genres.map(genre => {
-            return genre;
-          })} */}
+          {movie.genres.map(genre => {
+            return genre.name + ' ';
+          })}
         </p>
+        <h4>Additional information</h4>
+        {NavItem.map(button => {
+          return (
+            <NavLink key={`${button.href}`} to={`${button.href}`}>
+              {button.name}
+            </NavLink>
+          );
+        })}
+        <Outlet />
       </div>
     </>
   );
