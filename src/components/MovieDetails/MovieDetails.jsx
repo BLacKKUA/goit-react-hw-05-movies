@@ -1,26 +1,25 @@
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FetchInfoAboutMovie } from '../../FetchData/FetchData';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
   useEffect(() => {
     FetchInfoAboutMovie(movieId).then(setMovie);
   }, [movieId]);
-
   const NavItem = [
     { href: 'cast', name: 'Cast' },
     { href: 'reviews', name: 'Reviews' },
   ];
-  // console.log(movie);
   if (!movie) {
     return null;
   }
   return (
     <>
       <div>
-        <NavLink to="/">Go to back</NavLink>
+        <NavLink to={location.state.from}>Go to back</NavLink>
         <h1>{movie.name ?? movie.title}</h1>
         <img
           src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}

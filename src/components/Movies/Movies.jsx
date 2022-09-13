@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, NavLink } from 'react-router-dom';
+import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
 import { searchMovie } from '../../FetchData/FetchData';
 
 export const Movie = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [MovieItems, setMovieItems] = useState([]);
+  const location = useLocation();
+
   useEffect(() => {
     if (
       searchParams.get('query') !== '' &&
@@ -22,6 +24,7 @@ export const Movie = () => {
     setSearchParams({ query: e.currentTarget.query.value.trim() });
     e.currentTarget.query.value = '';
   };
+
   return (
     <>
       <form action="#" onSubmit={eventFrom}>
@@ -31,7 +34,11 @@ export const Movie = () => {
       {MovieItems.length !== 0
         ? MovieItems.map(movie => {
             return (
-              <NavLink key={`${movie.id}`} to={`${movie.id}`}>
+              <NavLink
+                key={`${movie.id}`}
+                to={`${movie.id}`}
+                state={{ from: `${location.pathname + location.search}` }}
+              >
                 {movie.original_title}
               </NavLink>
             );
