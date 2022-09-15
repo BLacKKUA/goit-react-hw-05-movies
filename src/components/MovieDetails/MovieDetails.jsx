@@ -6,6 +6,9 @@ export const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+  const checkLocation = location.state?.from ?? '/';
+  const params = useParams();
+  console.log(params);
   useEffect(() => {
     FetchInfoAboutMovie(movieId).then(setMovie);
   }, [movieId]);
@@ -19,7 +22,7 @@ export const MovieDetails = () => {
   return (
     <>
       <div>
-        <NavLink to={location.state.from}>Go to back</NavLink>
+        <NavLink to={checkLocation}>Go to back</NavLink>
         <h1>{movie.name ?? movie.title}</h1>
         <img
           src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
