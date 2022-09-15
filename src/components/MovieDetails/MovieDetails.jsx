@@ -41,7 +41,7 @@ export const MovieDetails = () => {
             <NavLink
               key={`${button.href}`}
               to={`${button.href}`}
-              state={location.state?.from ?? '/'}
+              state={{ from: location.state?.from }}
             >
               {button.name}
             </NavLink>
